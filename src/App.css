@@ -1,0 +1,36 @@
+.App {
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
+  position: relative;
+}
+
+.App-buttons {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 30vw;
+  background-color: hsl(200, 80%, 90%);
+}
+
+.App-buttons > button {
+  flex: 1;
+}
+
+.App-content {
+  position: absolute;
+  top: 0;
+  left: 30vw;
+  right: 0;
+  bottom: 0;
+}
+
+.App-reset {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20vmin;
+  height: 20vmin;
+}
