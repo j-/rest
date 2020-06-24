@@ -1,6 +1,6 @@
 import { Machine, assign } from 'xstate'
 import { interval } from 'rxjs';
-import { map, filter, first } from 'rxjs/operators';
+import { timeInterval, timeout, mapTo } from 'rxjs/operators';
 
 interface AppContext {
   time: Date | null;
@@ -8,10 +8,9 @@ interface AppContext {
 
 const timerSrc = (context: AppContext) => (
   interval(1000 / 60).pipe(
-    map(() => Date.now()),
-    filter((time) => time >= Number(context.time)),
-    first(),
-    map(() => ({ type: 'DONE' })),
+    timeInterval(),
+    timeout(context.time!),
+    mapTo({ type: 'DONE' }),
   )
 );
 
