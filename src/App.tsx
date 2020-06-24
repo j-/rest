@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
+import { useMachine } from '@xstate/react'
+import { machine } from './machine';
+import Timer from './Timer';
 
-function App() {
+const App: React.FC = () => {
+  const [current, send] = useMachine(machine, {
+    devTools: true,
+  });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <button type="button" onClick={() => send('START', { seconds: 120 })}>120 Seconds</button>
+        <button type="button" onClick={() => send('START', { seconds: 90 })}>90 Seconds</button>
+        <button type="button" onClick={() => send('START', { seconds: 60 })}>60 Seconds</button>
+        <button type="button" onClick={() => send('STOP')}>Stop</button>
+      </div>
+      {!current.matches('idle') && current.context.time && (
+        <Timer time={current.context.time} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
