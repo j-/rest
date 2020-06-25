@@ -4,6 +4,7 @@ import { StateConfig, AnyEventObject } from 'xstate';
 import classNames from 'classnames';
 import NoSleep from 'nosleep.js';
 import { machine, AppContext } from './machine';
+import { useNow } from './use-now';
 import { formatTime } from './format-time';
 import Timer from './Timer';
 import cross from './cross.svg';
@@ -18,6 +19,7 @@ try {
 } catch (err) {}
 
 const App: React.FC = () => {
+  const now = useNow();
   const [current, send, service] = useMachine(machine, {
     devTools: true,
     state: initialState,
@@ -42,6 +44,13 @@ const App: React.FC = () => {
         'App--idle': isIdle,
         'App--under': isUnder,
         'App--over': isOver,
+        'App--long': (
+          current.context.time !== null && (
+            current.context.time > now ?
+              current.context.time - now >= 599000 :
+              now - current.context.time >= 600000
+          )
+        ),
       })}>
       <div className="App-time-buttons">
         <button

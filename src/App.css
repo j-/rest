@@ -88,6 +88,14 @@
   transition: background-color ease-out 0.25s;
 }
 
+.App-timer {
+  transition: transform ease-out 0.25s;
+}
+
+.App--long .App-timer {
+  transform: scale(0.8);
+}
+
 @media (orientation: landscape) {
   .App-content {
     left: 0;
@@ -96,7 +104,6 @@
   .App-timer {
     font-size: 35vh;
   }
-
 }
 
 @media (orientation: portrait) {
@@ -107,7 +114,6 @@
   .App-timer {
     font-size: 35vw;
   }
-
 }
 
 .App--under .App-content {
