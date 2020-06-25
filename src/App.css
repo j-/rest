@@ -41,18 +41,19 @@
   appearance: none;
   border: none;
   outline: none;
+  color: #fff;
 }
 
 .App-time-button:nth-child(1) {
-  background-color: hsl(200, 80%, 70%);
+  background-color: hsl(0, 0%, 0%);
 }
 
 .App-time-button:nth-child(2) {
-  background-color: hsl(200, 80%, 80%);
+  background-color: hsl(0, 0%, 10%);
 }
 
 .App-time-button:nth-child(3) {
-  background-color: hsl(200, 80%, 90%);
+  background-color: hsl(0, 0%, 20%);
 }
 
 .App-time-button-text {
@@ -111,11 +112,11 @@
 }
 
 .App--under .App-content {
-  background-color: hsl(120, 80%, 70%);
+  background-color: hsl(120, 80%, 80%);
 }
 
 .App--over .App-content {
-  background-color: hsl(0, 80%, 70%);
+  background-color: hsl(0, 80%, 80%);
 }
 
 .App-reset {
