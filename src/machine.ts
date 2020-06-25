@@ -44,9 +44,12 @@ export const machine = Machine<AppContext>({
   on: {
     START: {
       target: 'timer',
-      actions: assign({
-        time: (_context, event) => new Date(Date.now() + event.seconds * 1000),
-      }),
+      actions: [
+        assign({
+          time: (_context, event) => new Date(Date.now() + event.seconds * 1000),
+        }),
+        'fullScreen',
+      ],
     },
     STOP: {
       target: 'idle',
