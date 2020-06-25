@@ -12,11 +12,56 @@
   left: 0;
   bottom: 0;
   width: 30vw;
-  background-color: hsl(200, 80%, 90%);
+  z-index: 2;
+  transition: width ease-out 0.25s;
+}
+
+.App--idle .App-time-buttons {
+  width: 100vw;
 }
 
 .App-time-button {
   flex: 1;
+  appearance: none;
+  border: none;
+  outline: none;
+}
+
+.App-time-button:nth-child(1) {
+  background-color: hsl(200, 80%, 70%);
+}
+
+.App-time-button:nth-child(1):active {
+  color: hsl(200, 80%, 70%);
+}
+
+.App-time-button:nth-child(2) {
+  background-color: hsl(200, 80%, 80%);
+}
+
+.App-time-button:nth-child(2):active {
+  color: hsl(200, 80%, 80%);
+}
+
+.App-time-button:nth-child(3) {
+  background-color: hsl(200, 80%, 90%);
+}
+
+.App-time-button:nth-child(3):active {
+  color: hsl(200, 80%, 90%);
+}
+
+.App-time-button:active {
+  background-color: #000;
+}
+
+.App-time-button-text {
+  font-size: 15vw;
+  transition: font-size ease-out 0.25s;
+}
+
+.App--idle .App-time-button-text {
+  font-size: 30vw;
 }
 
 .App-content {
@@ -33,4 +78,5 @@
   right: 0;
   width: 20vmin;
   height: 20vmin;
+  z-index: 1;
 }

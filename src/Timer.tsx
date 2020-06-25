@@ -7,7 +7,7 @@ export interface Props {
 
 const Timer: React.FC<Props> = ({ time }) => {
   const timer = useTimer(time);
-  return <div>{timer}</div>;
+  return <>{timer}</>;
 };
 
 export default Timer;
