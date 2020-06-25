@@ -16,7 +16,7 @@ const App: React.FC = () => {
     devTools: true,
     actions: {
       vibrate: () => window.navigator.vibrate(750),
-      fullScreen: () => setFull(true),
+      fullScreen: () => setFull(window.matchMedia('(pointer: coarse)').matches),
     },
   });
   const isIdle = current.matches('idle');
