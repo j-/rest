@@ -44,6 +44,10 @@
   color: #fff;
 }
 
+.App--idle .App-time-button-text {
+  transition: font-size ease-out 0.25s;
+}
+
 .App-time-button:nth-child(1) {
   background-color: hsl(0, 0%, 0%);
 }
