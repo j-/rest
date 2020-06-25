@@ -57,15 +57,13 @@
 }
 
 .App-time-button-text {
-  transition: font-size ease-out 0.25s;
+  display: block;
+  transition: transform ease-out 0.25s;
 }
 
 @media (orientation: landscape) {
   .App-time-button-text {
     font-size: 12vh;
-  }
-  .App--idle .App-time-button-text {
-    font-size: 30vh;
   }
 }
 
@@ -73,9 +71,10 @@
   .App-time-button-text {
     font-size: 12vw;
   }
-  .App--idle .App-time-button-text {
-    font-size: 30vw;
-  }
+}
+
+.App--idle .App-time-button-text {
+  transform: scale(2);
 }
 
 .App-content {
