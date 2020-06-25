@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useMachine } from '@xstate/react'
 import { StateConfig, AnyEventObject } from 'xstate';
-import Fullscreen from 'react-full-screen';
 import classNames from 'classnames';
 import NoSleep from 'nosleep.js';
 import { machine, AppContext } from './machine';
@@ -19,7 +18,6 @@ try {
 } catch (err) {}
 
 const App: React.FC = () => {
-  const [isFull, setFull] = React.useState(false);
   const [current, send, service] = useMachine(machine, {
     devTools: true,
     state: initialState,
@@ -39,75 +37,69 @@ const App: React.FC = () => {
     return subscription.unsubscribe;
   }, [service]);
   return (
-    <Fullscreen enabled={isFull} onChange={setFull}>
-      <div
-        className={classNames('App', {
-          'App--idle': isIdle,
-          'App--under': isUnder,
-          'App--over': isOver,
-        })}>
-        <div className="App-time-buttons">
-          <button
-            className="App-time-button"
-            type="button"
-            onClick={() => {
-              try {
-                nosleep.enable();
-                setFull(window.matchMedia('(pointer: coarse)').matches);
-              } catch (err) {}
-              send('START', { seconds: 120 });
-            }}
-          >
-            <span className="App-time-button-text">{formatTime(120 * 1000)}</span>
-          </button>
-          <button
-            className="App-time-button"
-            type="button"
-            onClick={() => {
-              try {
-                nosleep.enable();
-                setFull(window.matchMedia('(pointer: coarse)').matches);
-              } catch (err) {}
-              send('START', { seconds: 90 });
-            }}
-          >
-            <span className="App-time-button-text">{formatTime(90 * 1000)}</span>
-          </button>
-          <button
-            className="App-time-button"
-            type="button"
-            onClick={() => {
-              try {
-                nosleep.enable();
-                setFull(window.matchMedia('(pointer: coarse)').matches);
-              } catch (err) {}
-              send('START', { seconds: 60 });
-            }}
-          >
-            <span className="App-time-button-text">{formatTime(60 * 1000)}</span>
-          </button>
-        </div>
-        <div className="App-content">
-          {!isIdle && current.context.time && (
-            <span className="App-timer">
-              <Timer time={current.context.time} />
-            </span>
-          )}
-          <button
-            className="App-reset"
-            type="button"
-            onClick={() => {
-              try {
-                nosleep.disable();
-                setFull(false);
-              } catch (err) {}
-              send('STOP');
-            }}>
-            <img className="App-reset-icon" src={cross} alt="Stop" width="16" height="16" />
-          </button>
-        </div>
+    <div
+      className={classNames('App', {
+        'App--idle': isIdle,
+        'App--under': isUnder,
+        'App--over': isOver,
+      })}>
+      <div className="App-time-buttons">
+        <button
+          className="App-time-button"
+          type="button"
+          onClick={() => {
+            try {
+              nosleep.enable();
+            } catch (err) {}
+            send('START', { seconds: 120 });
+          }}
+        >
+          <span className="App-time-button-text">{formatTime(120 * 1000)}</span>
+        </button>
+        <button
+          className="App-time-button"
+          type="button"
+          onClick={() => {
+            try {
+              nosleep.enable();
+            } catch (err) {}
+            send('START', { seconds: 90 });
+          }}
+        >
+          <span className="App-time-button-text">{formatTime(90 * 1000)}</span>
+        </button>
+        <button
+          className="App-time-button"
+          type="button"
+          onClick={() => {
+            try {
+              nosleep.enable();
+            } catch (err) {}
+            send('START', { seconds: 60 });
+          }}
+        >
+          <span className="App-time-button-text">{formatTime(60 * 1000)}</span>
+        </button>
       </div>
-    </Fullscreen>
+      <div className="App-content">
+        {!isIdle && current.context.time && (
+          <span className="App-timer">
+            <Timer time={current.context.time} />
+          </span>
+        )}
+        <button
+          className="App-reset"
+          type="button"
+          onClick={() => {
+            try {
+              nosleep.disable();
+            } catch (err) {}
+            send('STOP');
+          }}>
+          <img className="App-reset-icon" src={cross} alt="Stop" width="16" height="16" />
+        </button>
+      </div>
+    </div>
   );
 };
 

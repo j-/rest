@@ -16,7 +16,6 @@
     "nosleep.js": "^0.11.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-full-screen": "^0.2.4",
     "react-scripts": "3.4.1",
     "rxjs": "^6.5.5",
     "typescript": "^3.7.5",
