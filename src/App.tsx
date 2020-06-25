@@ -1,19 +1,27 @@
 import * as React from 'react';
 import { useMachine } from '@xstate/react'
+import { StateConfig, AnyEventObject } from 'xstate';
 import Fullscreen from 'react-full-screen';
 import classNames from 'classnames';
 import NoSleep from 'nosleep.js';
-import { machine } from './machine';
+import { machine, AppContext } from './machine';
 import Timer from './Timer';
 import cross from './cross.svg';
 import './App.css';
 
 const nosleep = new NoSleep();
 
+let initialState: StateConfig<AppContext, AnyEventObject> | undefined = undefined;
+
+try {
+  initialState = JSON.parse(localStorage.getItem('rest/state') || '');
+} catch (err) {}
+
 const App: React.FC = () => {
   const [isFull, setFull] = React.useState(false);
-  const [current, send] = useMachine(machine, {
+  const [current, send, service] = useMachine(machine, {
     devTools: true,
+    state: initialState,
     actions: {
       vibrate: () => window.navigator.vibrate(750),
       fullScreenOn: () => setFull(window.matchMedia('(pointer: coarse)').matches),
@@ -23,6 +31,14 @@ const App: React.FC = () => {
   const isIdle = current.matches('idle');
   const isUnder = current.matches({ timer: 'under' });
   const isOver = current.matches({ timer: 'over' });
+  React.useEffect(() => {
+    const subscription = service.subscribe((state) => {
+      try {
+        localStorage.setItem('rest/state', JSON.stringify(state));
+      } catch (err) {}
+    });
+    return subscription.unsubscribe;
+  }, [service]);
   return (
     <Fullscreen enabled={isFull} onChange={setFull}>
       <div
