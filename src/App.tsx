@@ -24,8 +24,6 @@ const App: React.FC = () => {
     state: initialState,
     actions: {
       vibrate: () => window.navigator.vibrate(750),
-      fullScreenOn: () => setFull(window.matchMedia('(pointer: coarse)').matches),
-      fullScreenOff: () => setFull(false),
     },
   });
   const isIdle = current.matches('idle');
@@ -52,7 +50,10 @@ const App: React.FC = () => {
             className="App-time-button"
             type="button"
             onClick={() => {
-              nosleep.enable();
+              try {
+                nosleep.enable();
+                setFull(window.matchMedia('(pointer: coarse)').matches);
+              } catch (err) {}
               send('START', { seconds: 120 });
             }}
           >
@@ -62,7 +63,10 @@ const App: React.FC = () => {
             className="App-time-button"
             type="button"
             onClick={() => {
-              nosleep.enable();
+              try {
+                nosleep.enable();
+                setFull(window.matchMedia('(pointer: coarse)').matches);
+              } catch (err) {}
               send('START', { seconds: 90 });
             }}
           >
@@ -72,7 +76,10 @@ const App: React.FC = () => {
             className="App-time-button"
             type="button"
             onClick={() => {
-              nosleep.enable();
+              try {
+                nosleep.enable();
+                setFull(window.matchMedia('(pointer: coarse)').matches);
+              } catch (err) {}
               send('START', { seconds: 60 });
             }}
           >
@@ -89,7 +96,10 @@ const App: React.FC = () => {
             className="App-reset"
             type="button"
             onClick={() => {
-              nosleep.disable();
+              try {
+                nosleep.disable();
+                setFull(false);
+              } catch (err) {}
               send('STOP');
             }}>
             <img className="App-reset-icon" src={cross} alt="Stop" width="16" height="16" />
