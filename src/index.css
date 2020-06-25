@@ -9,3 +9,12 @@ body {
   touch-action: none;
   overscroll-behavior: none;
 }
+
+button {
+  outline: none;
+}
+
+button:active {
+  background-color: #fff;
+  filter: invert(1) hue-rotate(180deg);
+}

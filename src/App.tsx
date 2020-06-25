@@ -3,6 +3,7 @@ import { useMachine } from '@xstate/react'
 import classNames from 'classnames';
 import { machine } from './machine';
 import Timer from './Timer';
+import cross from './cross.svg';
 import './App.css';
 
 const App: React.FC = () => {
@@ -10,8 +11,15 @@ const App: React.FC = () => {
     devTools: true,
   });
   const isIdle = current.matches('idle');
+  const isUnder = current.matches({ timer: 'under' });
+  const isOver = current.matches({ timer: 'over' });
   return (
-    <div className={classNames('App', isIdle && 'App--idle')}>
+    <div
+      className={classNames('App', {
+        'App--idle': isIdle,
+        'App--under': isUnder,
+        'App--over': isOver,
+      })}>
       <div className="App-time-buttons">
         <button
           className="App-time-button"
@@ -37,9 +45,13 @@ const App: React.FC = () => {
       </div>
       <div className="App-content">
         {!isIdle && current.context.time && (
-          <Timer time={current.context.time} />
+          <span className="App-timer">
+            <Timer time={current.context.time} />
+          </span>
         )}
-        <button className="App-reset" type="button" onClick={() => send('STOP')}>&times;</button>
+        <button className="App-reset" type="button" onClick={() => send('STOP')}>
+          <img className="App-reset-icon" src={cross} alt="Stop" width="16" height="16" />
+        </button>
       </div>
     </div>
   );

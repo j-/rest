@@ -31,28 +31,12 @@
   background-color: hsl(200, 80%, 70%);
 }
 
-.App-time-button:nth-child(1):active {
-  color: hsl(200, 80%, 70%);
-}
-
 .App-time-button:nth-child(2) {
   background-color: hsl(200, 80%, 80%);
 }
 
-.App-time-button:nth-child(2):active {
-  color: hsl(200, 80%, 80%);
-}
-
 .App-time-button:nth-child(3) {
   background-color: hsl(200, 80%, 90%);
-}
-
-.App-time-button:nth-child(3):active {
-  color: hsl(200, 80%, 90%);
-}
-
-.App-time-button:active {
-  background-color: #000;
 }
 
 .App-time-button-text {
@@ -70,6 +54,23 @@
   left: 30vw;
   right: 0;
   bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  transition: background-color ease-out 0.25s;
+}
+
+.App--under .App-content {
+  background-color: hsl(120, 80%, 70%);
+}
+
+.App--over .App-content {
+  background-color: hsl(0, 80%, 70%);
+}
+
+.App-timer {
+  font-size: 40vw;
 }
 
 .App-reset {
@@ -79,4 +80,13 @@
   width: 20vmin;
   height: 20vmin;
   z-index: 1;
+  appearance: none;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.App-reset-icon {
+  width: 10vmin;
+  height: 10vmin;
 }
