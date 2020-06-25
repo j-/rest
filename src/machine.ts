@@ -28,7 +28,10 @@ export const machine = Machine<AppContext>({
       states: {
         under: {
           on: {
-            DONE: 'over',
+            DONE: {
+              target: 'over',
+              actions: 'vibrate',
+            },
           },
         },
         over: {},

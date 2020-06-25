@@ -12,6 +12,9 @@ const nosleep = new NoSleep();
 const App: React.FC = () => {
   const [current, send] = useMachine(machine, {
     devTools: true,
+    actions: {
+      vibrate: () => window.navigator.vibrate(750),
+    },
   });
   const isIdle = current.matches('idle');
   const isUnder = current.matches({ timer: 'under' });
