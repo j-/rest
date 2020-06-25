@@ -2,8 +2,8 @@ import { Machine, assign } from 'xstate'
 import { interval } from 'rxjs';
 import { map, filter, first } from 'rxjs/operators';
 
-interface AppContext {
-  time: Date | null;
+export interface AppContext {
+  time: number | null;
 }
 
 const timerSrc = (context: AppContext) => (
@@ -46,7 +46,7 @@ export const machine = Machine<AppContext>({
       target: 'timer',
       actions: [
         assign({
-          time: (_context, event) => new Date(Date.now() + event.seconds * 1000),
+          time: (_context, event) => Date.now() + event.seconds * 1000,
         }),
         'fullScreenOn',
       ],

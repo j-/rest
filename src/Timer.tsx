@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTimer } from './use-timer';
 
 export interface Props {
-  time: Date;
+  time: number;
 }
 
 const Timer: React.FC<Props> = ({ time }) => {
