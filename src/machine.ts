@@ -45,7 +45,7 @@ export const machine = Machine<AppContext>({
     START: {
       target: 'timer',
       actions: assign({
-        time: (_context, event) => Date.now() + event.seconds * 1000,
+        time: (_context, event) => Date.now() + event.seconds * 1000 - 100,
       }),
     },
     STOP: {
