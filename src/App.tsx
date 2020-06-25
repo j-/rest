@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { useMachine } from '@xstate/react'
 import classNames from 'classnames';
+import NoSleep from 'nosleep.js';
 import { machine } from './machine';
 import Timer from './Timer';
 import cross from './cross.svg';
 import './App.css';
+
+const nosleep = new NoSleep();
 
 const App: React.FC = () => {
   const [current, send] = useMachine(machine, {
@@ -24,21 +27,30 @@ const App: React.FC = () => {
         <button
           className="App-time-button"
           type="button"
-          onClick={() => send('START', { seconds: 120 })}
+          onClick={() => {
+            nosleep.enable();
+            send('START', { seconds: 120 });
+          }}
         >
           <span className="App-time-button-text">120</span>
         </button>
         <button
           className="App-time-button"
           type="button"
-          onClick={() => send('START', { seconds: 90 })}
+          onClick={() => {
+            nosleep.enable();
+            send('START', { seconds: 90 });
+          }}
         >
           <span className="App-time-button-text">90</span>
         </button>
         <button
           className="App-time-button"
           type="button"
-          onClick={() => send('START', { seconds: 60 })}
+          onClick={() => {
+            nosleep.enable();
+            send('START', { seconds: 60 });
+          }}
         >
           <span className="App-time-button-text">60</span>
         </button>
@@ -49,7 +61,13 @@ const App: React.FC = () => {
             <Timer time={current.context.time} />
           </span>
         )}
-        <button className="App-reset" type="button" onClick={() => send('STOP')}>
+        <button
+          className="App-reset"
+          type="button"
+          onClick={() => {
+            nosleep.disable();
+            send('STOP');
+          }}>
           <img className="App-reset-icon" src={cross} alt="Stop" width="16" height="16" />
         </button>
       </div>
