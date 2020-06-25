@@ -10,6 +10,11 @@ test.each([
   [800, '0:01'],
   [200, '0:01'],
   [0, '0:00'],
+])('formatTime(%i, false) === "%s"', (input, expected) => {
+  expect(formatTime(input, false)).toBe(expected);
+});
+
+test.each([
   [-200, '0:00'],
   [-800, '0:00'],
   [-1000, '0:01'],
@@ -18,6 +23,6 @@ test.each([
   [-59200, '0:59'],
   [-59800, '0:59'],
   [-60000, '1:00'],
-])('formatTime(%i) === "%s"', (input, expected) => {
-  expect(formatTime(input)).toBe(expected);
+])('formatTime(%i, true) === "%s"', (input, expected) => {
+  expect(formatTime(input, true)).toBe(expected);
 });
