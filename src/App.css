@@ -62,7 +62,7 @@
 
 @media (orientation: landscape) {
   .App-time-button-text {
-    font-size: 15vh;
+    font-size: 12vh;
   }
   .App--idle .App-time-button-text {
     font-size: 30vh;
@@ -71,7 +71,7 @@
 
 @media (orientation: portrait) {
   .App-time-button-text {
-    font-size: 15vw;
+    font-size: 12vw;
   }
   .App--idle .App-time-button-text {
     font-size: 30vw;
@@ -95,7 +95,7 @@
     top: 30%;
   }
   .App-timer {
-    font-size: 40vh;
+    font-size: 35vh;
   }
 
 }
@@ -106,7 +106,7 @@
     left: 30%;
   }
   .App-timer {
-    font-size: 40vw;
+    font-size: 35vw;
   }
 
 }

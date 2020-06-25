@@ -5,6 +5,7 @@ import Fullscreen from 'react-full-screen';
 import classNames from 'classnames';
 import NoSleep from 'nosleep.js';
 import { machine, AppContext } from './machine';
+import { formatTime } from './format-time';
 import Timer from './Timer';
 import cross from './cross.svg';
 import './App.css';
@@ -57,7 +58,7 @@ const App: React.FC = () => {
               send('START', { seconds: 120 });
             }}
           >
-            <span className="App-time-button-text">120</span>
+            <span className="App-time-button-text">{formatTime(120 * 1000)}</span>
           </button>
           <button
             className="App-time-button"
@@ -70,7 +71,7 @@ const App: React.FC = () => {
               send('START', { seconds: 90 });
             }}
           >
-            <span className="App-time-button-text">90</span>
+            <span className="App-time-button-text">{formatTime(90 * 1000)}</span>
           </button>
           <button
             className="App-time-button"
@@ -83,7 +84,7 @@ const App: React.FC = () => {
               send('START', { seconds: 60 });
             }}
           >
-            <span className="App-time-button-text">60</span>
+            <span className="App-time-button-text">{formatTime(60 * 1000)}</span>
           </button>
         </div>
         <div className="App-content">

@@ -1,8 +1,8 @@
 import { useNow } from './use-now';
-import { formatSeconds } from './format-seconds';
+import { formatTime } from './format-time';
 
 export const useTimer = (time: Date | number) => {
   const now = useNow();
   const diff = Number(time) - now;
-  return formatSeconds(diff);
+  return formatTime(diff);
 };
