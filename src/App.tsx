@@ -10,10 +10,10 @@ const App: React.FC = () => {
   });
   return (
     <div className="App">
-      <div className="App-buttons">
-        <button type="button" onClick={() => send('START', { seconds: 120 })}>120 Seconds</button>
-        <button type="button" onClick={() => send('START', { seconds: 90 })}>90 Seconds</button>
-        <button type="button" onClick={() => send('START', { seconds: 60 })}>60 Seconds</button>
+      <div className="App-time-buttons">
+        <button className="App-time-button" type="button" onClick={() => send('START', { seconds: 120 })}>120 Seconds</button>
+        <button className="App-time-button" type="button" onClick={() => send('START', { seconds: 90 })}>90 Seconds</button>
+        <button className="App-time-button" type="button" onClick={() => send('START', { seconds: 60 })}>60 Seconds</button>
       </div>
       <div className="App-content">
         {!current.matches('idle') && current.context.time && (

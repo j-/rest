@@ -4,7 +4,7 @@
   position: relative;
 }
 
-.App-buttons {
+.App-time-buttons {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -15,7 +15,7 @@
   background-color: hsl(200, 80%, 90%);
 }
 
-.App-buttons > button {
+.App-time-button {
   flex: 1;
 }
 
