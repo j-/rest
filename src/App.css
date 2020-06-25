@@ -6,18 +6,34 @@
 
 .App-time-buttons {
   display: flex;
-  flex-direction: column;
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
-  width: 30vw;
   z-index: 2;
-  transition: width ease-out 0.25s;
+  transition: all ease-out 0.25s;
+  transition-property: width height;
 }
 
-.App--idle .App-time-buttons {
-  width: 100vw;
+@media (orientation: landscape) {
+  .App-time-buttons {
+    flex-direction: row;
+    right: 0;
+    height: 30vh;
+  }
+  .App--idle .App-time-buttons {
+    height: 100vh;
+  }
+}
+
+@media (orientation: portrait) {
+  .App-time-buttons {
+    flex-direction: column;
+    bottom: 0;
+    width: 30vw;
+  }
+  .App--idle .App-time-buttons {
+    width: 100vw;
+  }
 }
 
 .App-time-button {
@@ -40,18 +56,29 @@
 }
 
 .App-time-button-text {
-  font-size: 15vw;
   transition: font-size ease-out 0.25s;
 }
 
-.App--idle .App-time-button-text {
-  font-size: 30vw;
+@media (orientation: landscape) {
+  .App-time-button-text {
+    font-size: 15vh;
+  }
+  .App--idle .App-time-button-text {
+    font-size: 30vh;
+  }
+}
+
+@media (orientation: portrait) {
+  .App-time-button-text {
+    font-size: 15vw;
+  }
+  .App--idle .App-time-button-text {
+    font-size: 30vw;
+  }
 }
 
 .App-content {
   position: absolute;
-  top: 0;
-  left: 30vw;
   right: 0;
   bottom: 0;
   display: flex;
@@ -61,16 +88,34 @@
   transition: background-color ease-out 0.25s;
 }
 
+@media (orientation: landscape) {
+  .App-content {
+    left: 0;
+    top: 30%;
+  }
+  .App-timer {
+    font-size: 40vh;
+  }
+
+}
+
+@media (orientation: portrait) {
+  .App-content {
+    top: 0;
+    left: 30%;
+  }
+  .App-timer {
+    font-size: 40vw;
+  }
+
+}
+
 .App--under .App-content {
   background-color: hsl(120, 80%, 70%);
 }
 
 .App--over .App-content {
   background-color: hsl(0, 80%, 70%);
-}
-
-.App-timer {
-  font-size: 40vw;
 }
 
 .App-reset {
