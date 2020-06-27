@@ -16,7 +16,8 @@ const nosleep = new NoSleep();
 let initialState: StateConfig<AppContext, AnyEventObject> | undefined;
 
 try {
-  const state: StateConfig<AppContext, AnyEventObject> = JSON.parse(localStorage.getItem('rest/state') || '');
+  localStorage.removeItem('rest/state');
+  const state: StateConfig<AppContext, AnyEventObject> = JSON.parse(localStorage.getItem('rest/state/v2') || '');
   State.create(state);
   initialState = state;
 } catch (err) {}
@@ -47,7 +48,7 @@ const App: React.FC = () => {
   React.useEffect(() => {
     const subscription = service.subscribe((state) => {
       try {
-        localStorage.setItem('rest/state', JSON.stringify(state));
+        localStorage.setItem('rest/state/v2', JSON.stringify(state));
       } catch (err) {}
     });
     return subscription.unsubscribe;
