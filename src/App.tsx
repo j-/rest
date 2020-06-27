@@ -70,7 +70,7 @@ const App: React.FC = () => {
         <button
           className="App-time-button"
           type="button"
-          onClick={() => {
+          onMouseDown={() => {
             try {
               nosleep.enable();
             } catch (err) {}
@@ -82,7 +82,7 @@ const App: React.FC = () => {
         <button
           className="App-time-button"
           type="button"
-          onClick={() => {
+          onMouseDown={() => {
             try {
               nosleep.enable();
             } catch (err) {}
@@ -94,7 +94,7 @@ const App: React.FC = () => {
         <button
           className="App-time-button"
           type="button"
-          onClick={() => {
+          onMouseDown={() => {
             try {
               nosleep.enable();
             } catch (err) {}
@@ -113,7 +113,7 @@ const App: React.FC = () => {
         <button
           className="App-reset"
           type="button"
-          onClick={() => {
+          onMouseDown={() => {
             try {
               nosleep.disable();
             } catch (err) {}
