@@ -1,19 +1,8 @@
 import { Machine, assign } from 'xstate'
-import { interval } from 'rxjs';
-import { map, filter, first } from 'rxjs/operators';
 
 export interface AppContext {
   time: number | null;
 }
-
-const timerSrc = (context: AppContext) => (
-  interval(1000 / 60).pipe(
-    map(() => Date.now()),
-    filter((time) => time >= Number(context.time)),
-    first(),
-    map(() => ({ type: 'DONE' })),
-  )
-);
 
 export const machine = Machine<AppContext>({
   id: 'machine',
@@ -37,7 +26,7 @@ export const machine = Machine<AppContext>({
         over: {},
       },
       invoke: {
-        src: timerSrc,
+        src: 'timer',
       },
     },
   },

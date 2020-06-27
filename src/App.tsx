@@ -3,6 +3,8 @@ import { useMachine } from '@xstate/react'
 import { StateConfig, AnyEventObject } from 'xstate';
 import classNames from 'classnames';
 import NoSleep from 'nosleep.js';
+import { interval } from 'rxjs';
+import { map, filter, first } from 'rxjs/operators';
 import { machine, AppContext } from './machine';
 import { useNow } from './use-now';
 import { formatTime } from './format-time';
@@ -25,6 +27,16 @@ const App: React.FC = () => {
     state: initialState,
     actions: {
       vibrate: () => window.navigator.vibrate(750),
+    },
+    services: {
+      timer: (context) => (
+        interval(1000).pipe(
+          map(() => Date.now()),
+          filter((time) => time >= Number(context.time)),
+          first(),
+          map(() => ({ type: 'DONE' })),
+        )
+      ),
     },
   });
   const isIdle = current.matches('idle');
