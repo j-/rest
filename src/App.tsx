@@ -97,10 +97,10 @@ const App: React.FC = () => {
             try {
               nosleep.enable();
             } catch (err) {}
-            send('START', { seconds: 3 });
+            send('START', { seconds: 60 });
           }}
         >
-          <span className="App-time-button-text">{formatTime(3 * 1000)}</span>
+          <span className="App-time-button-text">{formatTime(60 * 1000)}</span>
         </button>
       </div>
       <div className="App-content">
