@@ -3,10 +3,9 @@ import { useMachine } from '@xstate/react'
 import { StateConfig, AnyEventObject, State } from 'xstate';
 import classNames from 'classnames';
 import NoSleep from 'nosleep.js';
-import { interval } from 'rxjs';
-import { map, filter, first } from 'rxjs/operators';
 import { machine, AppContext } from './machine';
 import { useNow } from './use-now';
+import { usePrevious } from './use-previous';
 import { formatTime } from './format-time';
 import cross from './cross.svg';
 import './App.css';
@@ -24,22 +23,10 @@ try {
 
 const App: React.FC = () => {
   const now = useNow(250);
+  const previousNow = usePrevious(now);
   const [current, send, service] = useMachine(machine, {
     devTools: true,
     state: initialState,
-    actions: {
-      vibrate: () => window.navigator.vibrate(750),
-    },
-    services: {
-      timer: (context) => (
-        interval(250).pipe(
-          map(() => Date.now()),
-          filter((time) => time >= Number(context.time)),
-          first(),
-          map(() => ({ type: 'DONE' })),
-        )
-      ),
-    },
   });
   const diff = current.context.time === null ? null : current.context.time - now;
   const isIdle = current.matches('idle');
@@ -53,6 +40,11 @@ const App: React.FC = () => {
     });
     return subscription.unsubscribe;
   }, [service]);
+  React.useEffect(() => {
+    if (previousNow > 0 && now < 0) {
+      window.navigator.vibrate(750);
+    }
+  }, [now, previousNow]);
   return (
     <div
       className={classNames('App', {
