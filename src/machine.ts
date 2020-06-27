@@ -12,29 +12,13 @@ export const machine = Machine<AppContext>({
   },
   states: {
     idle: {},
-    timer: {
-      initial: 'under',
-      states: {
-        under: {
-          on: {
-            DONE: {
-              target: 'over',
-              actions: 'vibrate',
-            },
-          },
-        },
-        over: {},
-      },
-      invoke: {
-        src: 'timer',
-      },
-    },
+    timer: {},
   },
   on: {
     START: {
       target: 'timer',
       actions: assign({
-        time: (_context, event) => Date.now() + event.seconds * 1000 - 100,
+        time: (_context, event) => Date.now() + event.seconds * 1000 + 700,
       }),
     },
     STOP: {

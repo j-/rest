@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useMachine } from '@xstate/react'
-import { StateConfig, AnyEventObject } from 'xstate';
+import { StateConfig, AnyEventObject, State } from 'xstate';
 import classNames from 'classnames';
 import NoSleep from 'nosleep.js';
 import { interval } from 'rxjs';
@@ -8,20 +8,21 @@ import { map, filter, first } from 'rxjs/operators';
 import { machine, AppContext } from './machine';
 import { useNow } from './use-now';
 import { formatTime } from './format-time';
-import Timer from './Timer';
 import cross from './cross.svg';
 import './App.css';
 
 const nosleep = new NoSleep();
 
-let initialState: StateConfig<AppContext, AnyEventObject> | undefined = undefined;
+let initialState: StateConfig<AppContext, AnyEventObject> | undefined;
 
 try {
-  initialState = JSON.parse(localStorage.getItem('rest/state') || '');
+  const state: StateConfig<AppContext, AnyEventObject> = JSON.parse(localStorage.getItem('rest/state') || '');
+  State.create(state);
+  initialState = state;
 } catch (err) {}
 
 const App: React.FC = () => {
-  const now = useNow();
+  const now = useNow(250);
   const [current, send, service] = useMachine(machine, {
     devTools: true,
     state: initialState,
@@ -30,7 +31,7 @@ const App: React.FC = () => {
     },
     services: {
       timer: (context) => (
-        interval(1000).pipe(
+        interval(250).pipe(
           map(() => Date.now()),
           filter((time) => time >= Number(context.time)),
           first(),
@@ -39,9 +40,10 @@ const App: React.FC = () => {
       ),
     },
   });
+  const diff = current.context.time === null ? null : current.context.time - now;
   const isIdle = current.matches('idle');
-  const isUnder = current.matches({ timer: 'under' });
-  const isOver = current.matches({ timer: 'over' });
+  const isUnder = diff === null ? null : diff > 1000;
+  const isOver = diff === null ? null : !isUnder;
   React.useEffect(() => {
     const subscription = service.subscribe((state) => {
       try {
@@ -57,10 +59,9 @@ const App: React.FC = () => {
         'App--under': isUnder,
         'App--over': isOver,
         'App--long': (
-          current.context.time !== null && (
-            current.context.time > now ?
-              current.context.time - now >= 599000 :
-              now - current.context.time >= 600000
+          diff !== null && (
+            diff >= 599000 ||
+            diff <= -600000
           )
         ),
       })}>
@@ -96,16 +97,16 @@ const App: React.FC = () => {
             try {
               nosleep.enable();
             } catch (err) {}
-            send('START', { seconds: 60 });
+            send('START', { seconds: 3 });
           }}
         >
-          <span className="App-time-button-text">{formatTime(60 * 1000)}</span>
+          <span className="App-time-button-text">{formatTime(3 * 1000)}</span>
         </button>
       </div>
       <div className="App-content">
-        {!isIdle && current.context.time && (
+        {!isIdle && (
           <span className="App-timer">
-            <Timer time={current.context.time} />
+            {diff !== null && formatTime(diff)}
           </span>
         )}
         <button
