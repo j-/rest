@@ -107,7 +107,7 @@ const App: React.FC = () => {
       <div className="App-content">
         {!isIdle && (
           <span className="App-timer">
-            {diff !== null && formatTime(diff)}
+            {diff !== null && (Math.abs(diff) < 3600000) && formatTime(diff)}
           </span>
         )}
         <button
