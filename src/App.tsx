@@ -28,7 +28,8 @@ const App: React.FC = () => {
     devTools: true,
     state: initialState,
   });
-  const diff = current.context.time === null ? null : current.context.time - now;
+  const { time } = current.context;
+  const diff = time === null ? null : time - now;
   const isIdle = current.matches('idle');
   const isUnder = diff === null ? null : diff > 1000;
   const isOver = diff === null ? null : !isUnder;
@@ -41,10 +42,11 @@ const App: React.FC = () => {
     return subscription.unsubscribe;
   }, [service]);
   React.useEffect(() => {
-    if (previousNow > 0 && now < 0) {
+    if (time === null) return;
+    if (time - previousNow > 1000 && time - now < 1000) {
       window.navigator.vibrate(750);
     }
-  }, [now, previousNow]);
+  }, [time, now, previousNow]);
   return (
     <div
       className={classNames('App', {
